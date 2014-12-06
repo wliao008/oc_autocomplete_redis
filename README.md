@@ -1,4 +1,4 @@
-oc_autocomplete_redis
+Summary
 =====================
 
-Implementing autocomplete for a CRF in OpenClinica with redis.
+Implementing autocomplete from within a CRF in OpenClinica. The data is backed by Redis.
