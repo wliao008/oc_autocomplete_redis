@@ -1,4 +1,4 @@
-require 'rubygems'
+#require 'rubygems'
 require "redis"
 
 def stub(line, r)
@@ -8,13 +8,15 @@ def stub(line, r)
 		val = array[-(len-n)..-1].join(' ')
 		r.zadd('icd9',0,val)
 	}
-	puts
 end
 
-
-r = Redis.new
-f = File.open('shortlist.txt', 'r')
-f.each_line do |line|
-	stub(line, r)
+def do_work()
+	r = Redis.new
+	f = File.open('list.txt', 'r')
+	f.each_line do |line|
+		stub(line, r)
+	end
+	f.close
 end
-f.close
+
+do_work
