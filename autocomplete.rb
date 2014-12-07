@@ -5,7 +5,7 @@ def stub(line, r)
 	array = line.downcase.gsub!(/ - /, ' ').split(' ')
 	len = array.length - 1
 	(0..len).each {|n|
-		val = array[-(len-n)..-1].join(' ')
+		val = array[-(len-n)..-1].join(' ') + "$#{line.chop}"
 		r.zadd('icd9',0,val)
 	}
 end
