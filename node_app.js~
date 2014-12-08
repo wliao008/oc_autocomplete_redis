@@ -5,30 +5,36 @@ http.createServer(function (req, res) {
   var q = parseQueryString(req.url.substring(req.url.indexOf('?') + 1));
   if (typeof(q["q"]) != 'undefined'){
 	  var query = decodeURI(q["q"]);
+	  var callback = q["callback"];
 	  console.log("query: " + query);
-	  client.zrangebylex('icd9', '[' + query, '[' + query + '\\xff', 
+	  client.zrangebylex('icd9', '[' + query, '[' + query + '\xff', 
 		function(err, reply){
 		if (err !== null){
 		  console.log("error: " + err);
 		} else {
-		  res.writeHead(200, {'Content-Type': 'text/html'});
-		  var str = '<select style="width:600px;">';
+		  res.writeHead(200, {'Content-Type': 'text/plain'});
 		  var replies = [];
 		  for(var i = 0; i< reply.length; i++){
 			replies.push(reply[i].split("$")[1]);
 		  }
 		  replies = replies.sort();
+		  /*
 		  for(var i = 0; i< replies.length; i++){
 			var data = reply[i].split(' - ');
-			str += '<option value="' + data[0] + '">' 
-				+ data[1] + '</option>';
-  		  }
-		  str += "</select>";
+			str += replies[i];
+  		  }*/
+		  var str = 'callback( ' + JSON.stringify(replies) + ')';
 		  res.end(str);
 		}
 	  });
   }
 }).listen(1337, '127.0.0.1');
+
+function jsonpcallback(data){
+		console.log('callback called');
+		//console.log('success: ' + data);
+		//var result = JSON.parse(data);
+}
 
 var parseQueryString = function( queryString ) {
     var params = {}, queries, temp, i, l;
