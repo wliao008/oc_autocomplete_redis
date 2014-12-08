@@ -20,7 +20,7 @@ http.createServer(function (req, res) {
 		  //console.log(reply.length);
 		  for(var i = 0; i< reply.length; i++){
 			var data = reply[i].split("$");
-			str += '<option value="' + data[0] + '">' + data[1] + '</option>';
+			str += '<option value="' + data[1].split(' - ')[0] + '">' + data[1] + '</option>';
 			//console.log(obj.split("$")[1]);
 		  }
 		  str += "</select>";

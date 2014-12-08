@@ -7,6 +7,7 @@ http.createServer(function (req, res) {
   //console.log("q: " + q["q"]);
   if (typeof(q["q"]) != 'undefined'){
 	  var query = decodeURI(q["q"]);
+	  console.log("query: " + query);
 	  client.zrangebylex('icd9', '[' + query, '[' + query + '\\xff', function(err, reply){
 		if (err !== null){
 		  console.log("error: " + err);
