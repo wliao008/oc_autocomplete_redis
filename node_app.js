@@ -13,11 +13,16 @@ http.createServer(function (req, res) {
 		} else {
 		  res.writeHead(200, {'Content-Type': 'text/html'});
 		  var str = '<select style="width:600px;">';
+		  var replies = [];
 		  for(var i = 0; i< reply.length; i++){
-			var data = reply[i].split("$");
-			str += '<option value="' + data[1].split(' - ')[0] + '">' 
-				+ data[1] + '</option>';
+			replies.push(reply[i].split("$")[1]);
 		  }
+		  replies = replies.sort();
+		  for(var i = 0; i< replies.length; i++){
+			var data = reply[i].split(' - ');
+			str += '<option value="' + data[0] + '">' 
+				+ replies[i] + '</option>';
+  		  }
 		  str += "</select>";
 		  res.end(str);
 		}
