@@ -15,13 +15,18 @@
 
 
 		$(function(){
+
+			$.ajaxSetup({ scriptCharset: "utf-8" ,contentType: "application/x-www-form-urlencoded; charset=UTF-8" });
+ 
 		     $( "#icd9" ).autocomplete({
 		        source: function(req, res){
 					console.log('req.term: ' + req.term);
+					console.log('encoded: ' + encodeURI(req.term));
+					console.log('encoded: ' + encodeURIComponent(req.term));
 					$.ajax({url: "http://127.0.0.1:1337/?callback=?",
 							dataType: "jsonp",
 							data:{
-								q: req.term
+								q: encodeURIComponent(req.term)
 							},
 							success: function(data){
 								res(data);

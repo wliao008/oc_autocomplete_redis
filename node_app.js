@@ -14,7 +14,7 @@ var parseQueryString = function( queryString ) {
 http.createServer(function (req, res) {
   var q = parseQueryString(req.url.substring(req.url.indexOf('?') + 1));
   if (typeof(q["q"]) != 'undefined'){
-	  var query = decodeURI(decodeURI(q["q"]));
+	  var query = decodeURIComponent(decodeURI(q["q"])).toLowerCase();
 	  var callback = q["callback"];
 	  console.log("query: " + query); 
 	  client.zrangebylex('icd9', '[' + query, '[' + query + '\xff', 
