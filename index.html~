@@ -21,12 +21,12 @@
 		     $( "#icd9" ).autocomplete({
 		        source: function(req, res){
 					console.log('req.term: ' + req.term);
-					console.log('encoded: ' + encodeURI(req.term));
-					console.log('encoded: ' + encodeURIComponent(req.term));
+					//console.log('encoded: ' + encodeURI(req.term));
+					//console.log('encoded: ' + encodeURIComponent(req.term));
 					$.ajax({url: "http://127.0.0.1:1337/?callback=?",
 							dataType: "jsonp",
 							data:{
-								q: encodeURIComponent(req.term)
+								q: encodeURI(req.term)
 							},
 							success: function(data){
 								res(data);
@@ -37,12 +37,20 @@
 							}
 					});
 				},
-		        minLength: 2
+		        minLength: 2,
+				select: function(event, ui){
+					if (ui.item){
+						$('#selectedIcd9Label').text(ui.item.label);
+						$('#icd9').val(ui.item.label.split(' - ')[0]);
+						alert($('#icd9').val());
+					}
+				}
 		     });
 		});
       </script> 
    </head>
    <body>
-      <input id="icd9">
+      Search: <input id="icd9" style="width:600px;height:60px"><br/><br/>
+      Label: <span id="selectedIcd9Label"></span>
    </body>
 </html>
