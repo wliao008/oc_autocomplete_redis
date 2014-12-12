@@ -21,7 +21,7 @@
 					$.ajax({url: "http://127.0.0.1:1337/?callback=?",
 							dataType: "jsonp",
 							data:{
-								q: req.term
+								q: encodeURIComponent(req.term)
 							},
 							success: function(data){
 								res(data);
