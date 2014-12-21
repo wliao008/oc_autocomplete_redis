@@ -1,4 +1,6 @@
 Summary
 =====================
 
-Implementing autocomplete from within a CRF in OpenClinica. The data is backed by Redis.
+Implementing autocomplete with Redis, NodeJS and jQuery:
+
+http://www.codeproject.com/Articles/853819/AutoComplete-with-Redis-NodeJS-and-jQuery
