@@ -15,9 +15,10 @@ http.createServer(function (req, res) {
   var q = parseQueryString(req.url.substring(req.url.indexOf('?') + 1));
   if (typeof(q["q"]) != 'undefined'){
 	  var query = decodeURIComponent(decodeURI(q["q"])).toLowerCase();
+	  var autoicd = q["autoicd"]
 	  var callback = q["callback"];
 	  console.log("query: " + query); 
-	  client.zrangebylex('icd9', '[' + query, '[' + query + '\xff', 
+	  client.zrangebylex(autoicd, '[' + query, '[' + query + '\xff', 
 		function(err, reply){
 		if (err !== null){
 		  console.log("error: " + err);

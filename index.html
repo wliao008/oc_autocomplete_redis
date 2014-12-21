@@ -21,10 +21,12 @@
  			var myOutputField = $("#myOutput").parent().parent().find("input");
 			myOutputField.attr("readonly",true);
 
-		     $( "#icd9" ).autocomplete({
+		     $( ".autoicd" ).autocomplete({
 		        source: function(req, res){
-					console.log('req.term: ' + req.term);
-					$.ajax({url: "http://127.0.0.1:1337/?callback=?",
+					var _url="http://127.0.0.1:1337/?autoicd=" 
+						+ $(this.element).prop("id") + "&callback=?";
+					console.log('req.term: ' + req.term + ": " + _url);
+					$.ajax({url: _url,
 							dataType: "jsonp",
 							data:{
 								q: encodeURI(req.term)
@@ -50,7 +52,8 @@
       </script> 
    </head>
    <body>
-      Search: <input id="icd9"<br/>
+      ICD9: <input class="autoicd" id="icd9"><br/>
+      ICD9P: <input class="autoicd" id="icd9p"><br/>
       <span id="selectedIcd9Label"></span>
    </body>
 </html>
