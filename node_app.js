@@ -1,5 +1,7 @@
 var redis = require("redis"), client = redis.createClient();
 var http = require('http');
+var ip="127.0.0.1";
+var port=1337;
 
 var parseQueryString = function( queryString ) {
     var params = {}, queries, temp, i, l;
@@ -33,6 +35,6 @@ http.createServer(function (req, res) {
 		}
 	  });
   }
-}).listen(1337, '127.0.0.1');
+}).listen(port, ip);
 
-console.log('Server running at http://127.0.0.1:1337/');
+console.log('Server running at http://' + ip + ':' + port);
