@@ -12,19 +12,19 @@
       <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
       <!-- Javascript -->
       <script>
-
-
 		$(function(){
-
-			$.ajaxSetup({ scriptCharset: "utf-8" ,contentType: "application/x-www-form-urlencoded; charset=UTF-8" });
+			$.ajaxSetup({ scriptCharset: "utf-8" ,
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8" });
 			//this is OpenClinica specific
- 			var myOutputField = $("#myOutput").parent().parent().find("input");
+ 			var myOutputField = $("#myOutputicd9").parent().parent().find("input");
 			myOutputField.attr("readonly",true);
-
+ 			var myOutputFieldIcd9p = $("#myOutputicd9p").parent().parent().find("input");
+			myOutputFieldIcd9p.attr("readonly",true);
+			var outputId = '';
 		     $( ".autoicd" ).autocomplete({
 		        source: function(req, res){
-					var _url="http://127.0.0.1:1337/?autoicd=" 
-						+ $(this.element).prop("id") + "&callback=?";
+		        	outputId = $(this.element).prop("id");
+					var _url="http://127.0.0.1:1337/?autoicd=" + outputId + "&callback=?";
 					console.log('req.term: ' + req.term + ": " + _url);
 					$.ajax({url: _url,
 							dataType: "jsonp",
@@ -43,8 +43,8 @@
 		        minLength: 2,
 				select: function(event, ui){
 					if (ui.item){
-						$('#selectedIcd9Label').text(ui.item.label);
-						$('#myOutput').val(ui.item.label.split(' - ')[0]);
+						console.log('#myOutput' + outputId);
+						$('#myOutput' + outputId).val(ui.item.label.split(' - ')[0]);
 					}
 				}
 		     });
@@ -52,8 +52,15 @@
       </script> 
    </head>
    <body>
-      ICD9: <input class="autoicd" id="icd9"><br/>
-      ICD9P: <input class="autoicd" id="icd9p"><br/>
-      <span id="selectedIcd9Label"></span>
+   		<table>
+   			<tr>
+   				<td><span><input id="myOutputicd9"></span></td>
+   				<td>ICD9: <input class="autoicd" id="icd9"></td>
+   			</tr>
+   			<tr>
+   				<td><span><input id="myOutputicd9p"></span></td>
+   				<td>ICD9P: <input class="autoicd" id="icd9p"></td>
+   			</tr>
+   		</table>
    </body>
 </html>
